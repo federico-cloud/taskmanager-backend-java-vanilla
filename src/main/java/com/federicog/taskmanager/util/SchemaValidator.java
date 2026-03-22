@@ -17,9 +17,13 @@ public class SchemaValidator {
     public static boolean validate(String filePath) {
 
         try (
-             InputStream schemaStream = SchemaValidator.class.getResourceAsStream("/data/tasks-schema.json");
+             InputStream schemaStream = SchemaValidator.class.getResourceAsStream(Config.SCHEMA_RESOURCE);
              InputStream dataStream = Files.newInputStream(Paths.get(filePath))
         ) {
+            if (schemaStream == null) {
+                System.out.println("Schema file not found in classpath");
+                return false;
+            }
             Schema schema = SchemaLoader.load(new org.json.JSONObject(new JSONTokener(schemaStream)));
 
             // Leemos el archivo JSON a validar como JSONArray

@@ -56,6 +56,12 @@ public class TaskController {
                                 taskView.showError(e.getMessage());
                             }
                         }
+                        case 5 -> {
+                            taskView.showMessageInfo("Task ID to reopen : ");
+                            int id = Integer.parseInt(scanner.nextLine());
+                            taskService.reopenTaskById(id);
+                            taskView.showMessageSuccess("Task reopened!");
+                        }
                         case 0 -> {
                             taskView.showMessageInfo("Goodbye!");
                             return;

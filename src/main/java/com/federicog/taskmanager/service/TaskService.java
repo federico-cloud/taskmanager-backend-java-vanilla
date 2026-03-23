@@ -42,8 +42,8 @@ public class TaskService {
     }
 
     public void completeTaskById(int id) {
-        Task task = findTaskById(id);
-        task.setStatus(TaskStatus.COMPLETED);
+       Task task = findTaskById(id);
+       task.setStatus(TaskStatus.COMPLETED);
         JsonUtil.saveTasks(tasks);
     }
 
@@ -53,5 +53,10 @@ public class TaskService {
         JsonUtil.saveTasks(tasks);
     }
 
+    public void reopenTaskById(int id) {
+        Task task = findTaskById(id);
+        task.setStatus(TaskStatus.PENDING);
+        JsonUtil.saveTasks(tasks);
+    }
 
 }

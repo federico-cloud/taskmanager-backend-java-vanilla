@@ -12,6 +12,7 @@ public class TaskView {
         System.out.println("2. Add task");
         System.out.println("3. Complete tasks");
         System.out.println("4. Delete task");
+        System.out.println("5. Re open task");
         System.out.println("0. Exit");
         System.out.println("=======================");
         System.out.println("Choose an option:");

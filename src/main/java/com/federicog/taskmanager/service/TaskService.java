@@ -15,7 +15,14 @@ public class TaskService {
     }
 
     public void addTask(String title, String description) {
-        int id = tasks.size() + 1;
+        int maxId = 0;
+        for (Task task : tasks) {
+            if (task.getId() > maxId) {
+                maxId = task.getId();
+            }
+        }
+        int id = maxId + 1;
+
         Task task = new Task(id, title, description, TaskStatus.PENDING);
         tasks.add(task);
         JsonUtil.saveTasks(tasks);
@@ -35,9 +42,16 @@ public class TaskService {
     }
 
     public void completeTaskById(int id) {
-       Task task = findTaskById(id);
-       task.setStatus(TaskStatus.COMPLETED);
+        Task task = findTaskById(id);
+        task.setStatus(TaskStatus.COMPLETED);
         JsonUtil.saveTasks(tasks);
     }
+
+    public void deleteTaskById(int id) {
+        Task task = findTaskById(id);
+        tasks.remove(task);
+        JsonUtil.saveTasks(tasks);
+    }
+
 
 }

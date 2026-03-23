@@ -12,13 +12,14 @@ import java.nio.file.Paths;
 
 public class SchemaValidator {
 
-    private SchemaValidator() {}
+    private SchemaValidator() {
+    }
 
     public static boolean validate(String filePath) {
 
         try (
-             InputStream schemaStream = SchemaValidator.class.getResourceAsStream(Config.SCHEMA_RESOURCE);
-             InputStream dataStream = Files.newInputStream(Paths.get(filePath))
+                InputStream schemaStream = SchemaValidator.class.getResourceAsStream(Config.SCHEMA_RESOURCE);
+                InputStream dataStream = Files.newInputStream(Paths.get(filePath))
         ) {
             if (schemaStream == null) {
                 System.out.println("Schema file not found in classpath");
@@ -38,6 +39,9 @@ public class SchemaValidator {
             return false;
         } catch (IOException e) {
             System.out.println("File not found: " + filePath);
+            return false;
+        } catch (org.json.JSONException e) {
+            System.out.println("Malformed JSON: " + e.getMessage());
             return false;
         }
     }
